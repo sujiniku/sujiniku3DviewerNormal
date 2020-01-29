@@ -19,26 +19,25 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ ク
 static double Camera_x_Zahyou = 150;
 double Camera_z_Zahyou=100;
 
-double screen_z_Zahyou=200;
+double screen_z_Zahyou=250;
 
 
-double hisyatai1_X = 400;
+double hisyatai1_X = 200;
 double hisyatai1_Y = 50;
-double hisyatai1_Z = 300;
+double hisyatai1_Z = 100;
 
 
-double hisyatai2_X = 500;
+double hisyatai2_X = 300;
 double hisyatai2_Y = 50;
-double hisyatai2_Z = 300; // 500;
+double hisyatai2_Z = 100; // 500;
 
 
-double Camera_x = 400;
+double Camera_x = 250;
 double Camera_y = 50;
-double Camera_z = 700;
+double Camera_z = 300;
 
 
-double X1_onScreen = (hisyatai1_X / screen_z_Zahyou) * hisyatai1_Z;
-double Y1_onScreen = (hisyatai2_Y / screen_z_Zahyou) * hisyatai2_Z;
+
 
 int Camera_x_deffer = 0;
 int Camera_y_deffer = 0;
@@ -227,14 +226,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: HDC を使用する描画コードをここに追加してください...
 
-            /*
-            _stprintf_s(mojiBuffer, 200, TEXT("カメラx座標: %d"), (int)Camera_x_Zahyou); // デバッグ用メッセージ 
+            
+            _stprintf_s(mojiBuffer, 200, TEXT("カメラx座標: %d"), (int)Camera_x); // デバッグ用メッセージ 
             TextOut(hdc, 450, 160 + 20, mojiBuffer, lstrlen(mojiBuffer));
 
-            MoveToEx(hdc, Camera_x_Zahyou, 300, NULL); // 矢軸の矢先側
-            LineTo(hdc, Camera_x_Zahyou, 350);
 
-            */
+            int jyoumen_x = 300;   int jyoumen_z = 100; // 上面図の基準点
+
+            MoveToEx(hdc, jyoumen_x + Camera_x, jyoumen_z + Camera_z, NULL); // 矢軸の矢先側
+            LineTo(hdc, jyoumen_x + Camera_x, 150 + Camera_z); // 矢の尻
+
+            MoveToEx(hdc, jyoumen_x + Camera_x, jyoumen_z + Camera_z, NULL); // 矢先
+            LineTo(hdc, jyoumen_x + Camera_x+10, jyoumen_z + Camera_z+10);// 矢先の右側
+
+            MoveToEx(hdc, jyoumen_x + hisyatai1_X, jyoumen_z + hisyatai1_Z, NULL); // 被写体の片側
+            LineTo(hdc, jyoumen_x + hisyatai2_X, jyoumen_z + hisyatai1_Z);
+
+
+
+            MoveToEx(hdc, jyoumen_x + 150, jyoumen_z + screen_z_Zahyou, NULL); // スクリーンの片側
+            LineTo(hdc, jyoumen_x + 300, jyoumen_z + screen_z_Zahyou);
+
+     
 
             //            int pro1X;
 
@@ -274,11 +287,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             int hisyatai_onViewX = 350;  int hisyatai_onViewY = 150;  
 
 
-            // X1_onScreen = (hisyatai1_X / screen_z_Zahyou) * hisyatai1_Z;
-            // Y1_onScreen = (hisyatai1_Y / screen_z_Zahyou) * hisyatai1_Z;
-
-            // int kakudairitu1Z = (hisyatai1_Z / 300) ;
-            // int kakudairitu2Z = (hisyatai2_Z / 300) ;
 
             Rectangle(hdc, 
                 hisyatai_onViewX + touei_zahyou_list[1].x_zahyou, hisyatai_onViewY + touei_zahyou_list[1].y_zahyou,
@@ -359,17 +367,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         //if (game_mode == opening_mode) {
             switch (wParam) {
             case VK_UP: // 「上キーが入力されたら」という意味
-             //    Camera_z_deffer = Camera_z_deffer -5;
-                hisyatai1_Z = hisyatai1_Z + 5;
-                hisyatai2_Z = hisyatai2_Z + 5;
+             Camera_z = Camera_z -5;
+             screen_z_Zahyou = screen_z_Zahyou - 5;
 
                 /* ここに上（↑）キー入力後の処理を書く*/
                 break; // これは VK_UP: からのbreak
 
             case VK_DOWN:
-             //   Camera_z_deffer = Camera_z_deffer + 5; 
-                hisyatai1_Z = hisyatai1_Z - 5;
-                hisyatai2_Z = hisyatai2_Z - 5;
+              Camera_z = Camera_z + 5; 
+              screen_z_Zahyou = screen_z_Zahyou + 5;
 
                 /* ここに下（↓）キー入力後の処理を書く*/
                 break;  // これは VK_DOWN: からのbreak
@@ -381,7 +387,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 Camera_x = Camera_x + 10;
 
 
-                Camera_x_deffer = Camera_x_deffer + 10;
+               Camera_x_deffer = Camera_x_deffer + 10;
 
                 break; // これは VK_RIGHT からのbreak
             case VK_LEFT:
@@ -389,7 +395,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
                 Camera_x = Camera_x - 10;
 
-                Camera_x_deffer = Camera_x_deffer - 10;
+               Camera_x_deffer = Camera_x_deffer - 10;
 
                 break; // これは VK_LEFT: からのbreak
             }  // これは switch (wParam) の終わりのカッコ
