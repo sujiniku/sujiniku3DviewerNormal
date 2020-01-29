@@ -1,0 +1,10 @@
+﻿  sujiniku3DviewerNormal.cpp
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(285,116): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(285,34): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(284,84): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(284,34): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(337,156): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(337,45): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(345,156): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\st\source\repos\sujiniku3DviewerNormal\sujiniku3DviewerNormal\sujiniku3DviewerNormal.cpp(345,45): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+  sujiniku3DviewerNormal.vcxproj -> C:\Users\st\source\repos\sujiniku3DviewerNormal\Debug\sujiniku3DviewerNormal.exe
