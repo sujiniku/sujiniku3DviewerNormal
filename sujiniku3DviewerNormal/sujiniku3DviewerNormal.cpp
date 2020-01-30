@@ -32,6 +32,18 @@ double hisyatai2_Y = 50;
 double hisyatai2_Z = 100; // 500;
 
 
+
+double hisyatai11_X = 300;
+double hisyatai11_Y = 50;
+double hisyatai11_Z = 50;
+
+
+double hisyatai12_X = 400;
+double hisyatai12_Y = 50;
+double hisyatai12_Z = 50; // 500;
+
+
+
 double Camera_x = 250;
 double Camera_y = 50;
 double Camera_z = 300;
@@ -94,12 +106,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 
+    point_zahyou_list[3].x_zahyou = hisyatai11_X;
+    point_zahyou_list[3].y_zahyou = hisyatai11_Y;
+    point_zahyou_list[3].z_zahyou = hisyatai11_Z;
+
+
+    point_zahyou_list[4].x_zahyou = hisyatai12_X;
+    point_zahyou_list[4].y_zahyou = hisyatai12_Y;
+    point_zahyou_list[4].z_zahyou = hisyatai12_Z;
+
+
     static struct point_zahyou screen_zahyou_list[30];
 
 
     touei_zahyou_list[1].z_zahyou = screen_z_Zahyou;
     touei_zahyou_list[2].z_zahyou = screen_z_Zahyou;
 
+
+    touei_zahyou_list[3].z_zahyou = screen_z_Zahyou;
+    touei_zahyou_list[4].z_zahyou = screen_z_Zahyou;
 
 
 
@@ -239,8 +264,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             MoveToEx(hdc, jyoumen_x + Camera_x, jyoumen_z + Camera_z, NULL); // 矢先
             LineTo(hdc, jyoumen_x + Camera_x+10, jyoumen_z + Camera_z+10);// 矢先の右側
 
-            MoveToEx(hdc, jyoumen_x + hisyatai1_X, jyoumen_z + hisyatai1_Z, NULL); // 被写体の片側
+            MoveToEx(hdc, jyoumen_x + hisyatai1_X, jyoumen_z + hisyatai1_Z, NULL); // 被写体1の片側
             LineTo(hdc, jyoumen_x + hisyatai2_X, jyoumen_z + hisyatai1_Z);
+
+
+            MoveToEx(hdc, jyoumen_x + hisyatai11_X, jyoumen_z + hisyatai11_Z, NULL); // 被写体11の片側
+            LineTo(hdc, jyoumen_x + hisyatai12_X, jyoumen_z + hisyatai11_Z);
 
 
 
@@ -257,40 +286,65 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             kaiten_zahyou_list[1].y_zahyou = point_zahyou_list[1].y_zahyou ;
             kaiten_zahyou_list[1].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[1].x_zahyou - Camera_x) + cos (kaitenKaku) * (point_zahyou_list[1].z_zahyou - Camera_z);
 
-
             kaiten_zahyou_list[2].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[2].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[2].z_zahyou - Camera_z);
             kaiten_zahyou_list[2].y_zahyou = point_zahyou_list[2].y_zahyou;
             kaiten_zahyou_list[2].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[2].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[2].z_zahyou - Camera_z);
 
 
+            kaiten_zahyou_list[3].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[3].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[3].z_zahyou - Camera_z);
+            kaiten_zahyou_list[3].y_zahyou = point_zahyou_list[3].y_zahyou;
+            kaiten_zahyou_list[3].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[3].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[3].z_zahyou - Camera_z);
 
-            touei_zahyou_list[1].x_zahyou = (screen_z_Zahyou - Camera_z) / (kaiten_zahyou_list[1].z_zahyou - Camera_z) * (kaiten_zahyou_list[1].x_zahyou - Camera_x);
-            //int pro1Y;
-            touei_zahyou_list[1].y_zahyou = (screen_z_Zahyou - Camera_z) / (kaiten_zahyou_list[1].z_zahyou - Camera_z) * (kaiten_zahyou_list[1].y_zahyou - Camera_y);
+            kaiten_zahyou_list[4].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[4].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[4].z_zahyou - Camera_z);
+            kaiten_zahyou_list[4].y_zahyou = point_zahyou_list[4].y_zahyou;
+            kaiten_zahyou_list[4].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[4].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[4].z_zahyou - Camera_z);
+
+
+
+            //int pro1
+            touei_zahyou_list[1].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[1].z_zahyou - Camera_z) * (point_zahyou_list[1].x_zahyou - Camera_x)  ;
+            touei_zahyou_list[1].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[1].z_zahyou - Camera_z) * (point_zahyou_list[1].y_zahyou - Camera_y)  ;
 
 
             //    int pro2X 
-            touei_zahyou_list[2].x_zahyou = (screen_z_Zahyou - Camera_z) / (kaiten_zahyou_list[2].z_zahyou - Camera_z) * (kaiten_zahyou_list[2].x_zahyou - Camera_x);
-            //   int pro2Y 
+            touei_zahyou_list[2].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[2].z_zahyou - Camera_z) * (point_zahyou_list[2].x_zahyou - Camera_x) ;
+            touei_zahyou_list[2].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[2].z_zahyou - Camera_z) * (point_zahyou_list[2].y_zahyou - Camera_y) ;
 
-            touei_zahyou_list[2].y_zahyou = (screen_z_Zahyou - Camera_z) / (kaiten_zahyou_list[2].z_zahyou - Camera_z) * (kaiten_zahyou_list[2].y_zahyou - Camera_y);
 
+
+            // int pro3
+            touei_zahyou_list[3].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[3].z_zahyou - Camera_z) * (point_zahyou_list[3].x_zahyou - Camera_x) ;
+            touei_zahyou_list[3].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[3].z_zahyou - Camera_z) * (point_zahyou_list[3].y_zahyou - Camera_y) ;
+
+            // int pro4
+            touei_zahyou_list[4].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[4].z_zahyou - Camera_z) * (point_zahyou_list[4].x_zahyou - Camera_x) ;
+            touei_zahyou_list[4].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[4].z_zahyou - Camera_z) * (point_zahyou_list[4].y_zahyou - Camera_y) ;
 
 
 
 
             HBRUSH brasi_parts_2;
-            brasi_parts_2 = CreateSolidBrush(RGB(100, 100, 255)); // 壁の表示用のブルー色のブラシを作成
-            SelectObject(hdc, brasi_parts_2); // ウィンドウhdcと、さきほど作成したブラシを関連づけ
-
-
             int hisyatai_onViewX = 350;  int hisyatai_onViewY = 150;  
 
 
+            brasi_parts_2 = CreateSolidBrush(RGB(100, 255, 100)); // 壁の表示用のgreen色のブラシを作成
+            SelectObject(hdc, brasi_parts_2); // ウィンドウhdcと、さきほど作成したブラシを関連づけ
+
+            Rectangle(hdc,
+                hisyatai_onViewX + touei_zahyou_list[3].x_zahyou, hisyatai_onViewY + touei_zahyou_list[3].y_zahyou,
+                hisyatai_onViewX + touei_zahyou_list[4].x_zahyou, hisyatai_onViewY + touei_zahyou_list[4].y_zahyou + 40); // 基準の状態			
+
+
+
+            brasi_parts_2 = CreateSolidBrush(RGB(100, 100, 255)); // 壁の表示用のブルー色のブラシを作成
+            SelectObject(hdc, brasi_parts_2); // ウィンドウhdcと、さきほど作成したブラシを関連づけ
 
             Rectangle(hdc, 
                 hisyatai_onViewX + touei_zahyou_list[1].x_zahyou, hisyatai_onViewY + touei_zahyou_list[1].y_zahyou,
                 hisyatai_onViewX + touei_zahyou_list[2].x_zahyou, hisyatai_onViewY + touei_zahyou_list[2].y_zahyou + 30); // 基準の状態			
+
+
+ 
 
 
 
