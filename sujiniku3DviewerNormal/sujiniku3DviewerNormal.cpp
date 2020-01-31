@@ -22,25 +22,31 @@ double Camera_z_Zahyou=100;
 double screen_z_Zahyou=250;
 
 
-double hisyatai1_X = 200;
-double hisyatai1_Y = 50;
-double hisyatai1_Z = 100;
-
-
-double hisyatai2_X = 300;
-double hisyatai2_Y = 50;
-double hisyatai2_Z = 100; // 500;
+double kaiten_arrow_x;
+double kaiten_arrow_z;
 
 
 
-double hisyatai11_X = 300;
-double hisyatai11_Y = 50;
-double hisyatai11_Z = 50;
+
+double hisyatai_n1p1_X = 200; // n1p1 とは1番目(nの直後の下図)の被写体の第1（pの直後）の点という意味。
+double hisyatai_n1p1_Y = 50;
+double hisyatai_n1p1_Z = 100;
 
 
-double hisyatai12_X = 400;
-double hisyatai12_Y = 50;
-double hisyatai12_Z = 50; // 500;
+double hisyatai_n1p2_X = 300; // 1番目の被写体の第2の点。
+double hisyatai_n1p2_Y = 50;
+double hisyatai_n1p2_Z = 100; // 500;
+
+
+
+double hisyatai_n2p1_X = 300;
+double hisyatai_n2p1_Y = 50;
+double hisyatai_n2p1_Z = 50;
+
+
+double hisyatai_n2p2_X = 400;
+double hisyatai_n2p2_Y = 50;
+double hisyatai_n2p2_Z = 50; // 500;
 
 
 
@@ -70,7 +76,7 @@ static struct point_zahyou point_zahyou_list[30];
 static struct point_zahyou touei_zahyou_list[30];
 static struct point_zahyou kaiten_zahyou_list[30];
 
-int kaitenKaku = 0;
+double   kaitenKaku = 0 +(3.141 / 4) + (3.141 / 1) ;
 
 
 
@@ -95,25 +101,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 
-    point_zahyou_list[1].x_zahyou = hisyatai1_X;
-    point_zahyou_list[1].y_zahyou = hisyatai1_Y;
-    point_zahyou_list[1].z_zahyou = hisyatai1_Z;
+    point_zahyou_list[1].x_zahyou = hisyatai_n1p1_X;
+    point_zahyou_list[1].y_zahyou = hisyatai_n1p1_Y;
+    point_zahyou_list[1].z_zahyou = hisyatai_n1p1_Z;
 
 
-    point_zahyou_list[2].x_zahyou = hisyatai2_X;
-    point_zahyou_list[2].y_zahyou = hisyatai2_Y;
-    point_zahyou_list[2].z_zahyou = hisyatai2_Z;
+    point_zahyou_list[2].x_zahyou = hisyatai_n1p2_X;
+    point_zahyou_list[2].y_zahyou = hisyatai_n1p2_Y;
+    point_zahyou_list[2].z_zahyou = hisyatai_n1p2_Z;
 
 
 
-    point_zahyou_list[3].x_zahyou = hisyatai11_X;
-    point_zahyou_list[3].y_zahyou = hisyatai11_Y;
-    point_zahyou_list[3].z_zahyou = hisyatai11_Z;
+    point_zahyou_list[3].x_zahyou = hisyatai_n2p1_X;
+    point_zahyou_list[3].y_zahyou = hisyatai_n2p1_Y;
+    point_zahyou_list[3].z_zahyou = hisyatai_n2p1_Z;
 
 
-    point_zahyou_list[4].x_zahyou = hisyatai12_X;
-    point_zahyou_list[4].y_zahyou = hisyatai12_Y;
-    point_zahyou_list[4].z_zahyou = hisyatai12_Z;
+    point_zahyou_list[4].x_zahyou = hisyatai_n2p2_X;
+    point_zahyou_list[4].y_zahyou = hisyatai_n2p2_Y;
+    point_zahyou_list[4].z_zahyou = hisyatai_n2p2_Z;
 
 
     static struct point_zahyou screen_zahyou_list[30];
@@ -256,20 +262,74 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             TextOut(hdc, 450, 160 + 20, mojiBuffer, lstrlen(mojiBuffer));
 
 
-            int jyoumen_x = 300;   int jyoumen_z = 100; // 上面図の基準点
+            double jyoumen_x = 300;   double jyoumen_z = 100; // 上面図の基準点
+            
+            double arrowSiri_X = jyoumen_x + Camera_x; 
+            double arrowSiri_Z = jyoumen_z + Camera_z;
+           
+            double arrowLength = 50;
 
-            MoveToEx(hdc, jyoumen_x + Camera_x, jyoumen_z + Camera_z, NULL); // 矢軸の矢先側
-            LineTo(hdc, jyoumen_x + Camera_x, 150 + Camera_z); // 矢の尻
+            double arrowHead_X0 = arrowSiri_X;
+            double arrowHead_Z0 = arrowSiri_Z - arrowLength;
+            
+            double arrowHeadRight_X = arrowHead_X0 + 10;
+            double arrowHeadRight_Z = arrowHead_Z0 + 10;
 
-            MoveToEx(hdc, jyoumen_x + Camera_x, jyoumen_z + Camera_z, NULL); // 矢先
-            LineTo(hdc, jyoumen_x + Camera_x+10, jyoumen_z + Camera_z+10);// 矢先の右側
-
-            MoveToEx(hdc, jyoumen_x + hisyatai1_X, jyoumen_z + hisyatai1_Z, NULL); // 被写体1の片側
-            LineTo(hdc, jyoumen_x + hisyatai2_X, jyoumen_z + hisyatai1_Z);
+           
 
 
-            MoveToEx(hdc, jyoumen_x + hisyatai11_X, jyoumen_z + hisyatai11_Z, NULL); // 被写体11の片側
-            LineTo(hdc, jyoumen_x + hisyatai12_X, jyoumen_z + hisyatai11_Z);
+            MoveToEx(hdc, arrowHead_X0 , arrowHead_Z0 , NULL); // 矢軸の矢先側
+            LineTo(hdc, arrowSiri_X, arrowSiri_Z); // 矢の尻 // カメラはここにいる
+
+            MoveToEx(hdc, arrowHead_X0, arrowHead_Z0, NULL); // 矢先
+            LineTo(hdc, arrowHeadRight_X , arrowHeadRight_Z );// 矢先の右側
+
+
+          //  kaitenKaku = 0;
+
+            kaiten_arrow_x = cos(kaitenKaku) * (arrowLength) + (-1) * sin(kaitenKaku) * (arrowLength);
+           // kaiten_zahyou_list[1].y_zahyou = point_zahyou_list[1].y_zahyou;
+            kaiten_arrow_z = sin(kaitenKaku) * (arrowLength) + cos(kaitenKaku) * (arrowLength);
+
+
+
+
+
+            // 回転デバッグのモニター
+            int offsetRotX = 150;
+            MoveToEx(hdc, offsetRotX + arrowSiri_X + kaiten_arrow_x, arrowSiri_Z + kaiten_arrow_z , NULL); // 矢軸の矢先側
+            LineTo(hdc, offsetRotX + arrowSiri_X, arrowSiri_Z ); // 矢の尻 // カメラはここにいる
+
+            HBRUSH brasi_parts_2;
+            
+
+            brasi_parts_2 = CreateSolidBrush(RGB(100, 255, 100)); // 壁の表示用のgreen色のブラシを作成
+            SelectObject(hdc, brasi_parts_2); // ウィンドウhdcと、さきほど作成したブラシを関連づけ
+
+
+            Rectangle(hdc,
+              offsetRotX + arrowSiri_X, arrowSiri_Z,
+              offsetRotX + arrowSiri_X + 5 , arrowSiri_Z + 5
+            );
+
+
+         //   MoveToEx(hdc, arrowHead_X, arrowHead_Z, NULL); // 矢先
+         //   LineTo(hdc, arrowHeadRight_X, arrowHeadRight_Z);// 矢先の右側
+
+            TCHAR mojibuf2[100];
+            _stprintf_s(mojibuf2, 100, TEXT("回転角  %d"), (int)kaitenKaku);
+            TextOut(hdc, 360, 260, mojibuf2, lstrlen(mojibuf2));
+
+
+
+
+
+            MoveToEx(hdc, jyoumen_x + hisyatai_n1p1_X, jyoumen_z + hisyatai_n1p1_Z, NULL); // 被写体1の片側
+            LineTo(hdc, jyoumen_x + hisyatai_n1p2_X, jyoumen_z + hisyatai_n1p1_Z);
+
+
+            MoveToEx(hdc, jyoumen_x + hisyatai_n2p1_X, jyoumen_z + hisyatai_n2p1_Z, NULL); // 被写体11の片側
+            LineTo(hdc, jyoumen_x + hisyatai_n2p2_X, jyoumen_z + hisyatai_n2p1_Z);
 
 
 
@@ -323,7 +383,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 
 
-            HBRUSH brasi_parts_2;
+           // HBRUSH brasi_parts_2;
             int hisyatai_onViewX = 350;  int hisyatai_onViewY = 150;  
 
 
@@ -377,8 +437,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             /*
             Rectangle(hdc, 
-                hisyatai_onViewX - (hisyatai2_Z / screen_z_Zahyou)  * Camera_x_deffer, hisyatai_onViewY,
-                hisyatai_onViewX + 10 - (hisyatai2_Z / screen_z_Zahyou) * Camera_x_deffer, hisyatai_onViewY + 20); // 基準の状態			
+                hisyatai_onViewX - (hisyatai_n1p2_Z / screen_z_Zahyou)  * Camera_x_deffer, hisyatai_onViewY,
+                hisyatai_onViewX + 10 - (hisyatai_n1p2_Z / screen_z_Zahyou) * Camera_x_deffer, hisyatai_onViewY + 20); // 基準の状態			
                 
             */
 
@@ -452,6 +512,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                Camera_x_deffer = Camera_x_deffer - 10;
 
                 break; // これは VK_LEFT: からのbreak
+
+
+
+            case 'W':
+                /* ここにWキー入力後の処理を書く*/
+                kaitenKaku = kaitenKaku + 0.2;
+
+                break; // これは VK_LEFT: からのbreak
+
+            case 'Q':
+                /* ここにQキー入力後の処理を書く*/
+                kaitenKaku = kaitenKaku - 0.2;
+
+                break; // これは VK_LEFT: からのbreak
+
+
+
             }  // これは switch (wParam) の終わりのカッコ
 
         //}
