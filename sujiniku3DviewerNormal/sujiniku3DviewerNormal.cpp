@@ -76,7 +76,7 @@ static struct point_zahyou point_zahyou_list[30];
 static struct point_zahyou touei_zahyou_list[30];
 static struct point_zahyou kaiten_zahyou_list[30];
 
-double   kaitenKaku = 0 +(3.141 / 4) + (3.141 / 1) ;
+double   kaitenKaku = 0; // +(3.141 / 4) + (3.141 / 1);
 
 
 
@@ -287,9 +287,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
           //  kaitenKaku = 0;
 
-            kaiten_arrow_x = cos(kaitenKaku) * (arrowLength) + (-1) * sin(kaitenKaku) * (arrowLength);
+            kaiten_arrow_x = cos(kaitenKaku) * (0) + (1) * sin(kaitenKaku) * (arrowLength);
            // kaiten_zahyou_list[1].y_zahyou = point_zahyou_list[1].y_zahyou;
-            kaiten_arrow_z = sin(kaitenKaku) * (arrowLength) + cos(kaitenKaku) * (arrowLength);
+            kaiten_arrow_z = sin(kaitenKaku) * (0) + cos(kaitenKaku) * (arrowLength);
 
 
 
@@ -297,7 +297,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             // 回転デバッグのモニター
             int offsetRotX = 150;
-            MoveToEx(hdc, offsetRotX + arrowSiri_X + kaiten_arrow_x, arrowSiri_Z + kaiten_arrow_z , NULL); // 矢軸の矢先側
+            MoveToEx(hdc, offsetRotX + arrowSiri_X + kaiten_arrow_x, arrowSiri_Z - kaiten_arrow_z , NULL); // 矢軸の矢先側
             LineTo(hdc, offsetRotX + arrowSiri_X, arrowSiri_Z ); // 矢の尻 // カメラはここにいる
 
             HBRUSH brasi_parts_2;
