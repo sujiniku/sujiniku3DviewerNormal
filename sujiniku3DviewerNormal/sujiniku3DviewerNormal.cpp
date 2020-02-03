@@ -341,44 +341,44 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             //            int pro1X;
 
 
-
-            kaiten_zahyou_list[1].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[1].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[1].z_zahyou - Camera_z);
+            // 先に被写体を回転させる
+            kaiten_zahyou_list[1].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[1].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[1].z_zahyou - Camera_z) + Camera_x;
             kaiten_zahyou_list[1].y_zahyou = point_zahyou_list[1].y_zahyou ;
-            kaiten_zahyou_list[1].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[1].x_zahyou - Camera_x) + cos (kaitenKaku) * (point_zahyou_list[1].z_zahyou - Camera_z);
+            kaiten_zahyou_list[1].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[1].x_zahyou - Camera_x) + cos (kaitenKaku) * (point_zahyou_list[1].z_zahyou - Camera_z) + Camera_z;
 
-            kaiten_zahyou_list[2].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[2].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[2].z_zahyou - Camera_z);
+            kaiten_zahyou_list[2].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[2].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[2].z_zahyou - Camera_z) + Camera_x ;
             kaiten_zahyou_list[2].y_zahyou = point_zahyou_list[2].y_zahyou;
-            kaiten_zahyou_list[2].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[2].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[2].z_zahyou - Camera_z);
+            kaiten_zahyou_list[2].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[2].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[2].z_zahyou - Camera_z) + Camera_z;
 
 
-            kaiten_zahyou_list[3].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[3].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[3].z_zahyou - Camera_z);
+            kaiten_zahyou_list[3].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[3].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[3].z_zahyou - Camera_z) + Camera_x;
             kaiten_zahyou_list[3].y_zahyou = point_zahyou_list[3].y_zahyou;
-            kaiten_zahyou_list[3].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[3].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[3].z_zahyou - Camera_z);
+            kaiten_zahyou_list[3].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[3].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[3].z_zahyou - Camera_z) + Camera_z;
 
-            kaiten_zahyou_list[4].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[4].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[4].z_zahyou - Camera_z);
+            kaiten_zahyou_list[4].x_zahyou = cos(kaitenKaku) * (point_zahyou_list[4].x_zahyou - Camera_x) + (-1) * sin(kaitenKaku) * (point_zahyou_list[4].z_zahyou - Camera_z) + Camera_x;
             kaiten_zahyou_list[4].y_zahyou = point_zahyou_list[4].y_zahyou;
-            kaiten_zahyou_list[4].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[4].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[4].z_zahyou - Camera_z);
+            kaiten_zahyou_list[4].z_zahyou = sin(kaitenKaku) * (point_zahyou_list[4].x_zahyou - Camera_x) + cos(kaitenKaku) * (point_zahyou_list[4].z_zahyou - Camera_z) + Camera_z;
 
 
-
+            // 被写体の回転のあとから、スクリーンに投影する
             //int pro1
-            touei_zahyou_list[1].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[1].z_zahyou - Camera_z) * (point_zahyou_list[1].x_zahyou - Camera_x)  ;
-            touei_zahyou_list[1].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[1].z_zahyou - Camera_z) * (point_zahyou_list[1].y_zahyou - Camera_y)  ;
+            touei_zahyou_list[1].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[1].z_zahyou - Camera_z) * (kaiten_zahyou_list[1].x_zahyou - Camera_x)  ;
+            touei_zahyou_list[1].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[1].z_zahyou - Camera_z) * (kaiten_zahyou_list[1].y_zahyou - Camera_y)  ;
 
 
             //    int pro2X 
-            touei_zahyou_list[2].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[2].z_zahyou - Camera_z) * (point_zahyou_list[2].x_zahyou - Camera_x) ;
-            touei_zahyou_list[2].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[2].z_zahyou - Camera_z) * (point_zahyou_list[2].y_zahyou - Camera_y) ;
+            touei_zahyou_list[2].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[2].z_zahyou - Camera_z) * (kaiten_zahyou_list[2].x_zahyou - Camera_x) ;
+            touei_zahyou_list[2].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[2].z_zahyou - Camera_z) * (kaiten_zahyou_list[2].y_zahyou - Camera_y) ;
 
 
 
             // int pro3
-            touei_zahyou_list[3].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[3].z_zahyou - Camera_z) * (point_zahyou_list[3].x_zahyou - Camera_x) ;
-            touei_zahyou_list[3].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[3].z_zahyou - Camera_z) * (point_zahyou_list[3].y_zahyou - Camera_y) ;
+            touei_zahyou_list[3].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[3].z_zahyou - Camera_z) * (kaiten_zahyou_list[3].x_zahyou - Camera_x) ;
+            touei_zahyou_list[3].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[3].z_zahyou - Camera_z) * (kaiten_zahyou_list[3].y_zahyou - Camera_y) ;
 
             // int pro4
-            touei_zahyou_list[4].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[4].z_zahyou - Camera_z) * (point_zahyou_list[4].x_zahyou - Camera_x) ;
-            touei_zahyou_list[4].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[4].z_zahyou - Camera_z) * (point_zahyou_list[4].y_zahyou - Camera_y) ;
+            touei_zahyou_list[4].x_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[4].z_zahyou - Camera_z) * (kaiten_zahyou_list[4].x_zahyou - Camera_x) ;
+            touei_zahyou_list[4].y_zahyou = (screen_z_Zahyou - Camera_z) / (point_zahyou_list[4].z_zahyou - Camera_z) * (kaiten_zahyou_list[4].y_zahyou - Camera_y) ;
 
 
 
@@ -390,19 +390,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             brasi_parts_2 = CreateSolidBrush(RGB(100, 255, 100)); // 壁の表示用のgreen色のブラシを作成
             SelectObject(hdc, brasi_parts_2); // ウィンドウhdcと、さきほど作成したブラシを関連づけ
 
-            Rectangle(hdc,
-                hisyatai_onViewX + touei_zahyou_list[3].x_zahyou, hisyatai_onViewY + touei_zahyou_list[3].y_zahyou,
-                hisyatai_onViewX + touei_zahyou_list[4].x_zahyou, hisyatai_onViewY + touei_zahyou_list[4].y_zahyou + 40); // 基準の状態			
 
+            if (kaiten_zahyou_list[3].z_zahyou <= Camera_z) {
+                Rectangle(hdc,
+                    hisyatai_onViewX + touei_zahyou_list[3].x_zahyou, hisyatai_onViewY + touei_zahyou_list[3].y_zahyou,
+                    hisyatai_onViewX + touei_zahyou_list[4].x_zahyou, hisyatai_onViewY + touei_zahyou_list[4].y_zahyou + 40); // 基準の状態			
+            }
 
 
             brasi_parts_2 = CreateSolidBrush(RGB(100, 100, 255)); // 壁の表示用のブルー色のブラシを作成
             SelectObject(hdc, brasi_parts_2); // ウィンドウhdcと、さきほど作成したブラシを関連づけ
 
-            Rectangle(hdc, 
-                hisyatai_onViewX + touei_zahyou_list[1].x_zahyou, hisyatai_onViewY + touei_zahyou_list[1].y_zahyou,
-                hisyatai_onViewX + touei_zahyou_list[2].x_zahyou, hisyatai_onViewY + touei_zahyou_list[2].y_zahyou + 30); // 基準の状態			
-
+            if (kaiten_zahyou_list[1].z_zahyou <= Camera_z) {
+                Rectangle(hdc,
+                    hisyatai_onViewX + touei_zahyou_list[1].x_zahyou, hisyatai_onViewY + touei_zahyou_list[1].y_zahyou,
+                    hisyatai_onViewX + touei_zahyou_list[2].x_zahyou, hisyatai_onViewY + touei_zahyou_list[2].y_zahyou + 30); // 基準の状態			
+            }
 
  
 
